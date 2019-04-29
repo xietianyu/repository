@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<typeAliases>
+		<typeAlias type="com.tarena.entity.User" alias="User"/>
+		<typeAlias type="com.tarena.entity.Role" alias="Role"/>
+		<typeAlias type="com.tarena.entity.UserRole" alias="UserRole"/>
+		<typeAlias type="com.tarena.vo.Page" alias="Page"/>
+		<typeAlias type="com.tarena.entity.Course" alias="Course"/>
+	</typeAliases>
+	
+	
+</configuration>

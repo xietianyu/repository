@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tarena.dao.RoleMapper">
+	<!-- 定义resultMap节点 -->
+	<resultMap type="Role" id="roleMap">
+		<id property="id" column="role_id"/>
+		<result property="name" column="role_name"/>
+	</resultMap>
+	<!-- 分页查询 -->
+	<select id="getCount"
+	        parameterType="Page"
+	        resultType="java.lang.Integer">
+		select 
+		     count(role_id)
+		from t_role
+		where role_name like #{roleKeyword}  
+	</select>
+	<!-- 查询当前页的数据 -->
+	<select id="getRolesByPage"
+	        parameterType="Page"
+	        resultMap="roleMap">
+		select 
+		     role_id,
+		     role_name
+		from t_role
+		where role_name like #{roleKeyword}
+		limit #{begin},#{pageSize}
+	</select>
+	<!-- 添加角色 -->
+	<insert id="addRole"
+	        parameterType="Role">
+		insert into t_role
+		(role_id,role_name)
+		values
+		(#{id},#{name})
+	</insert>
+	<!-- 删除角色 -->
+	<delete id="deleteRole"
+	        parameterType="java.lang.String">
+		delete from t_role
+		where role_id=#{id}
+	</delete>
+	<!-- 修改角色 -->
+	<update id="updateRole"
+	        parameterType="Role">
+		update t_role 
+		set
+		  role_name=#{name}
+		where 
+		  role_id=#{id}
+	</update>
+	<!-- 查询所有的角色信息,给新增用户使用 -->
+	<select id="findAllRoles"
+	        resultType="Role">
+		select 
+		    role_id id,
+		    role_name name
+		from t_role
+	</select>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+   <!--将Shiro的组件以bean的形式交给Spring管理  -->
+	 <bean id="lifeCycleBeanProcessor" 
+	 class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+	 
+	<!--Spring为shiro的bean创建代理对象 
+		代理的方式:
+			1.jdk
+			2.cglib
+	 -->
+	 <bean 
+	 class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+	 depends-on="lifeCycleBeanProcessor">
+	 	<!--表示强制使用cglib为其创建代理对象  -->
+	 	<property name="proxyTargetClass" value="true"></property>
+	 </bean>
+	
+	
+	<!--切面中需要的对象,也使用cglib来创建代理对象  -->
+	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+  	
+  	
+  	<!--Shiro的安全中心  其中需要提供真实的用户信息. 需要加载realm  -->
+	 <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+	 	<property name="realm" ref="AuthRealm"></property>
+	 </bean>
+	 
+	 <!--自定义Realm 为安全中心提供信息  -->
+	 <bean id="AuthRealm" class="com.tarena.shiro.AuthRealm">
+	 	<property name="credentialsMatcher" ref="authCredential"></property>
+	 </bean>
+	 
+	 
+	 <!--自定义加密算法  -->
+	 <bean id="authCredential" class="com.tarena.shiro.AuthCredential"/>
+	 
+	
+	 <!--权限认证的适配器  -->
+	 <bean  class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+	 	<property name="securityManager" ref="securityManager"></property>
+	 </bean>
+	 <!-- 创建LogoutFilter对象,shiro登出 -->
+	 <bean id="logoutFilter" class="com.tarena.shiro.SystemLogoutFilter">
+	 	<property name="redirectUrl" value="/login.html"></property>
+	 </bean>
+	 <!-- shiro的过滤器  -->
+	 <bean id="shiroFilter"  class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+	 	<!--配置安全中心  -->
+	 	<property name="securityManager" ref="securityManager"></property>
+	 	
+	 	<!--指定登陆的地址  当用户没有登陆时.默认跳转该页面-->
+	 	<property name="loginUrl" value="/login.html"></property>
+	 	
+	 	<!-- 注册shiro中的过滤器 -->
+	 	<property name="filters">
+	 		<map>
+	 		    <!-- 注册登出的过滤器给shiro的过滤器 -->
+	 			<entry key="logout" value-ref="logoutFilter"></entry>
+	 		</map>
+	 	</property>
+	 	
+	 	<!--过滤器链  -->
+	 	<property name="filterChainDefinitions">
+		 	<value>
+		 		<!--添加过滤信息
+		 			1.anon  表示放行
+		 			2.authc 表示拦截-->
+			 	/user/login/** = anon
+			 	/css/**  = anon
+			 	/font-awesome/**  = anon
+			 	/fonts/**  = anon
+			 	/head/**  = anon
+			 	/images/**  = anon
+			 	/js/**  = anon
+			 	/page/**  = anon
+			 	<!-- 请求user/logout地址,shiro会调用过滤器中的preHandle -->
+			 	/user/logout=logout
+			 	<!--/** 拦截所有的请求和静态资源文件  -->
+		        /index.html* = authc
+		        /index.jsp* = authc
+			 	/** = authc
+		 	</value>
+	 	</property>
+	 </bean>
+</beans>

@@ -1,0 +1,1 @@
+var basePath="/tes_ssm/";

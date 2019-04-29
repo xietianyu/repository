@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tarena.dao.ActivityMapper">
+	<!-- 查询出指定用户发起的所有的活动id -->
+	<select id="findActivityIds"
+	        parameterType="java.lang.String"
+	        resultType="java.lang.String">
+		select activity_id 
+		from t_activity
+		where user_id=#{userId}
+	</select>
+	<!-- 删除指定用户的发起的所有的活动信息 -->
+	<delete id="deleteActivityByUserId"
+	        parameterType="java.lang.String">
+		delete from t_activity
+		where user_id=#{userId}        
+	</delete>
+</mapper>

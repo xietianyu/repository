@@ -1,0 +1,372 @@
+<!-- 页签导航 -->
+<div role="tabpanel">
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#pushPanel" aria-controls="auditPanel" role="tab" data-toggle="tab" >推送模式</a></li>
+    <li role="presentation"><a href="#managePanel" aria-controls="managePanel" role="tab" data-toggle="tab">管理模式</a></li>
+  </ul>
+</div>
+
+<!-- 页签面板-->
+<div class="tab-content">
+
+  <!-- 推送模式 -->
+  <div role="tabpanel" class="tab-pane active" id="pushPanel">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="col-sm-10 col-md-11">
+          <div class="btn-group" role="group" aria-label="">
+            <button type="button" class="btn btn-default">Java</button>
+            <button type="button" class="btn btn-default">IOS</button>
+            <button type="button" class="btn btn-default">C++</button>
+            <button type="button" class="btn btn-default">PHP</button>
+            <button type="button" class="btn btn-default">Web前端</button>
+            <button type="button" class="btn btn-default">测试</button>
+            <button type="button" class="btn btn-default">网络营销</button>
+            <button type="button" class="btn btn-default">UID</button>
+            <button type="button" class="btn btn-default">Unity3D</button>
+            <button type="button" class="btn btn-default">Android</button>
+            <button type="button" class="btn btn-default">.NET</button>
+            <button type="button" class="btn btn-default">Linux</button>
+            <button type="button" class="btn btn-default">嵌入式</button>
+            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-th-large"></span></button>
+          </div>
+        </div>
+        <div class="col-sm-2 col-md-1">
+          <button class="btn btn-warning" id="refresh_btn">
+            <i class="icon-spinner"></i>
+                        推送
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <div id="push_panels">
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>  
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div>   
+        </div>
+      </div>
+      
+    </div>      
+  </div>
+
+  <!-- 管理模式 -->
+  <div role="tabpanel" class="tab-pane" id="managePanel">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="btn-group" role="group" aria-label="">
+          <button type="button" class="btn btn-default active">Java</button>
+          <button type="button" class="btn btn-default">IOS</button>
+          <button type="button" class="btn btn-default">C++</button>
+          <button type="button" class="btn btn-default">PHP</button>
+          <button type="button" class="btn btn-default">Web前端</button>
+          <button type="button" class="btn btn-default">软件测试</button>
+          <button type="button" class="btn btn-default">网络营销</button>
+          <button type="button" class="btn btn-default">UID</button>
+          <button type="button" class="btn btn-default">Unity3D</button>
+          <button type="button" class="btn btn-default">Android</button>
+          <button type="button" class="btn btn-default">.NET</button>
+          <button type="button" class="btn btn-default">Linux</button>
+          <button type="button" class="btn btn-default">智能硬件</button>
+        </div>
+        <p></p>
+        <div class="row">
+          <div class="col-sm-5 col-md-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">搜索</button>
+              </span>
+            </div>  
+          </div>
+          <div class="col-sm-7 col-md-8">
+            <div class="row">
+              <div class="col-sm-3 col-md-3">
+                <div class="checkbox-inline">
+                  <label>
+                    <input type="checkbox" checked="checked"> 未审核
+                  </label>
+                </div>  
+                <div class="checkbox-inline">
+                  <label>
+                    <input type="checkbox"> 已审核
+                  </label>
+                </div>           
+              </div>
+              <div class="col-sm-3 col-md-2">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-default" id="comment_time">评论时间 <span class="glyphicon glyphicon-chevron-down"></span></button>
+                </div>  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-9 col-md-10">
+        <div>
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>  
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div>   
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>  
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div>  
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>  
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div> 
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>  
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div> 
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div>   
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>  
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div>   
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>  
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div>  
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>  
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div> 
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>  
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div> 
+          <div class="panel panel-default">
+            <div class="text-center">
+              <h3><a href="#">Spring MVC 对异常处理的支持</a></h3>
+              <div>
+                  <span>用户：<a href="#">曹操</a></span> • <span>2015年5月18日</span>
+              </div>  
+            </div>      
+            <div class="panel-body">
+              <h4>
+                                讲的太好了，我都听懂了！老师讲的非常的细致耐心，画的图十分的容易理解。
+              </h4>
+              <div class="text-right">
+                  <button type="button" class="btn btn-success">&nbsp;&nbsp;通&nbsp;&nbsp;过&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-danger">&nbsp;&nbsp;拒&nbsp;&nbsp;绝&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </div>    
+        </div>
+      </div>
+      
+      <div class="col-sm-3 col-md-2">
+        <div class="panel panel-default">
+          <div class="panel-heading text-center">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+            </button> 
+            <h3 class="panel-title">敏感词</h3>
+          </div>
+          <div class="panel-body">
+            <textarea class="form-control" rows="50">
+                      差，骗，垃圾，他妈，她妈，烂，滥，SB，TM
+            </textarea>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-sm-9 col-md-10">
+        <!-- 分页导航 -->
+        <nav class="col-md-4 col-md-offset-4">
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>             
+      </div>
+      <div class="col-sm-3 col-md-2">
+        <button type="button" class="btn btn-success btn-block">全部通过</button>
+        <button type="button" class="btn btn-danger btn-block">全部拒绝</button>  
+      </div>  
+      
+    </div>      
+  </div>
+</div>
+
+<!-- 记录审核的Modal界面 -->
+<div class="modal fade bs-example-modal-sm" id="checked" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+                         审核提示
+        </h4>
+      </div>
+      <div class="modal-body">
+                       确认记录审核通过！
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">
+                          确 认
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+                          取 消
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+      

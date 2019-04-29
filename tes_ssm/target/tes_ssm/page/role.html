@@ -1,0 +1,175 @@
+<!-- 页签导航 -->
+<div role="tabpanel">
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#rolePanel" aria-controls="rolePanel" role="tab" data-toggle="tab" >列表</a></li>
+    <li role="presentation"><a href="#addPanel" aria-controls="addPanel" role="tab" data-toggle="tab">新增</a></li>
+  </ul>
+</div>
+
+<!-- 页签面板-->
+<div class="tab-content">
+
+  <div role="tabpanel" class="tab-pane active" id="rolePanel">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">搜 索</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <table id="role_table" class="table table-striped">
+          <thead>
+            <tr>
+              <th class="col-md-1">#</th>
+              <th class="col-md-3">编码</th>
+              <th class="col-md-1">名称</th>
+              <th class="col-md-1">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>1</td>
+              <td>超级管理员</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>2</td>
+              <td>讲师</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>3</td>
+              <td>学员</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>00000011-4455-6677-8899-AABBCCDDEEFF</td>
+              <td>评论管理员</td>
+              <td>
+                <a href="" data-toggle="modal" data-target="#editRole" ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>编辑</a>
+                <a href="" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</a>
+              </td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>00000011-4455-6677-8899-AABBCCDDEEFF</td>
+              <td>活动管理员</td>
+              <td>
+                <a href="" data-toggle="modal" data-target="#editRole" ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>编辑</a>
+                <a href="" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <!-- 分页导航 -->
+    <nav class="col-md-4 col-md-offset-4">
+      <ul id="role_page" class="pagination">
+        <li>
+          <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- 新增角色 -->
+  <div role="tabpanel" class="tab-pane" id="addPanel">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form class="form-horizontal">
+          <!-- inputs -->
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="roleName">角色名称:</label>
+            <div class="col-md-8">
+              <input type="text" id="roleName"  class="form-control">
+            </div>
+          </div>
+          <!-- buttons -->
+          <div class="form-group">
+            <div class="col-md-8 col-md-offset-3">
+              <button type="submit" class="btn btn-primary">确  认</button>
+            <button type="reset" class="btn btn-primary">重  置</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- /tab-content-->
+
+<!-- 删除角色的Modal界面 -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+     <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">删除角色</h4>
+      </div>
+      <div class="modal-body">
+                  确认删除该记录？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">确  认</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">取  消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 修改角色的界面 -->
+<div class="modal fade" id="editRole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h4 class="modal-title" id="myModalLabel"><strong>编 辑 角 色</strong></h4>
+      </div>
+      <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="role_name">角色名称:</label>
+          <div class="col-md-8">
+           <input type="text" id="role_name"  class="form-control">
+          </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-8 col-md-offset-3">
+              <button type="submit" class="btn btn-primary">确  认</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">取  消</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

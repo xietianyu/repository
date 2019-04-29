@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tarena.dao.UserMapper">
+    <!-- role的ResultMap -->
+	<resultMap type="Role" id="roleMap">
+	    <!-- 注意:从表中的外键id,不能跟主表的主键id名字相同 -->
+		<id property="id" column="role_id" />
+		<result property="name" column="role_name"/>
+	</resultMap>
+	<!-- user的resultMap -->
+	<resultMap type="User" id="userMap">
+		<id property="id" column="user_id" jdbcType="VARCHAR"/>
+		<result property="loginName" column="user_loginname" jdbcType="VARCHAR"/>
+		<result property="loginType" column="user_logintype" jdbcType="VARCHAR"/>
+		<result property="nickName" column="user_nickname" jdbcType="VARCHAR"/>
+		<result property="password" column="user_password" jdbcType="VARCHAR"/>
+		<result property="type" column="user_type" jdbcType="INTEGER"/>
+		<result property="head" column="user_head" jdbcType="VARCHAR"/>
+		<result property="score" column="user_score" jdbcType="INTEGER"/>
+		<result property="isLock" column="user_islock" jdbcType="CHAR"/>
+		<result property="pwdState" column="user_pwdstate" jdbcType="VARCHAR"/>
+		<result property="regDate" column="user_regdate" jdbcType="TIMESTAMP"/>
+		<result property="age" column="user_age" jdbcType="INTEGER"/>
+		<result property="sex" column="user_sex" jdbcType="CHAR"/>
+		<result property="introduction" column="user_introduction" jdbcType="VARCHAR"/>
+		<collection property="roles" 
+		            ofType="Role" 
+		            javaType="java.util.List"
+		            resultMap="roleMap"></collection>
+	</resultMap>
+	<!-- 非shiro登录  -->
+	<select id="login"
+	        parameterType="User"
+	        resultType="java.lang.String">
+		select user_id
+		from t_user
+		where user_loginname=#{loginName} and
+		      user_password=#{password}
+	</select>
+	<!-- shiro登录 -->
+	<select id="findUserByloginName"
+	        parameterType="java.lang.String"
+	        resultType="User">
+		select 
+		    user_id  id,
+		    user_loginname loginName,
+		    user_password password
+		from t_user
+		where user_loginname=#{loginName}
+	</select>
+	<!-- 没有角色类型的分页 -->
+	<select id="getCount"
+	        parameterType="Page"
+	        resultType="java.lang.Integer">
+	    select count(user_id)
+	    from t_user
+	    where user_loginname like #{userKeyword} or
+	          user_nickname like #{userKeyword}    
+	</select>
+	<select id="getUsersByPage"
+	        parameterType="Page"
+	        resultMap="userMap">
+		select
+			u.user_id,
+			u.user_loginname,
+			u.user_logintype,
+			u.user_nickname,
+			u.user_password,
+			u.user_type,
+			u.user_head,
+			u.user_score,
+			u.user_islock,
+			u.user_pwdstate,
+			u.user_regdate,
+			u.user_age,
+			u.user_sex,
+			r.role_id,
+			r.role_name
+		from (
+		        select * from t_user
+		        where  user_loginname like #{userKeyword} or
+	                   user_nickname like #{userKeyword} 
+	            limit #{begin},#{pageSize}
+		     ) u
+		left join t_user_role ur on u.user_id=ur.uid
+		left join t_role r on r.role_id=ur.rid
+	</select>
+	<!-- 分页查询 带有角色类型(讲师,学员,管理员) -->
+	<select id="getCount_RoleType"
+	        parameterType="Page"
+	        resultType="java.lang.Integer">
+	    select count(tt.geshu) from 
+	    (	   
+	    select count(u.user_id) geshu
+	    from (
+	    		select role_id from t_role
+	    		where role_name like #{roleType}
+	         ) r
+	    left join t_user_role ur on r.role_id=ur.rid
+	    left join (
+	    			select user_id from t_user
+	    			where user_loginname like #{userKeyword} or
+	    			      user_nickname like #{userKeyword}
+	              ) u on u.user_id=ur.uid	
+	    group by u.user_id	
+	   ) tt                  
+	</select>
+	<select id="getUserByPage_RoleType"
+	        parameterType="Page"
+	        resultMap="userMap">
+		select
+			u.user_id,
+			u.user_loginname,
+			u.user_logintype,
+			u.user_nickname,
+			u.user_password,
+			u.user_type,
+			u.user_head,
+			u.user_score,
+			u.user_islock,
+			u.user_pwdstate,
+			u.user_regdate,
+			u.user_age,
+			u.user_sex,
+			r.role_id,
+			r.role_name
+		from (
+	    		select * from t_role
+	    		where role_name like #{roleType}
+	         ) r
+	    left join t_user_role ur on r.role_id=ur.rid
+	    left join (
+	    			select * from t_user
+	    			where user_loginname like #{userKeyword} or
+	    			      user_nickname like #{userKeyword}
+	              ) u on u.user_id=ur.uid	
+	    limit #{begin},#{pageSize}
+	</select>
+	<!-- 给用户表添加用户信息 -->
+	<insert id="addUser"
+	        parameterType="User">
+	    insert into t_user
+	    (
+	       user_id,
+	       user_loginname,
+	       user_password,
+	       user_nickname,
+	       user_age,
+	       user_sex,
+	       user_head
+	    )
+	    values
+	    (
+	      #{id},
+	      #{loginName},
+	      #{password},
+	      #{nickName},
+	      #{age},
+	      #{sex},
+	      #{head}
+	    )
+	</insert>
+	<!-- 给用户和角色的中间表添加信息 -->
+	<insert id="addUserRole"
+	        parameterType="UserRole">
+		insert into t_user_role
+		(
+			uid,
+			rid
+		)
+		values
+		(
+			#{userId},
+			#{roleId}
+		)        
+	</insert>
+	<!-- 更新用户信息 -->
+	<update id="updateUser"
+	        parameterType="User">
+	    update t_user set
+	         user_loginname=#{loginName},
+	         user_password=#{password},
+	         user_nickname=#{nickName},
+	         user_age=#{age},
+	         user_sex=#{sex},
+	         user_head=#{head}
+	    where user_id=#{id}
+	</update>
+	<!-- 删除中间表中的指定用户id所对应的所有的角色信息 -->
+	<delete id="deleteRolesByUserId"
+	        parameterType="java.lang.String">
+		delete from t_user_role where uid=#{userId}
+	</delete>
+	<!-- 删除用户和模块中间表,根据指定用户id -->
+	<delete id="deleteModuleByUserId"
+	        parameterType="java.lang.String">
+		delete from t_user_module where uid=#{userId}        
+	</delete>
+	<!-- 删除好友列表中有指定用户id的数据项 -->
+	<delete id="deleteFriendListByUserId"
+	        parameterType="java.lang.String">
+		delete from t_friendlist where user_id=#{userId}
+	</delete>
+	<!-- 删除指定用户的历史和缓存信息 -->
+	<delete id="deleteHistoryCacheByUserId"
+	        parameterType="java.lang.String">
+		delete from t_history_cache_collection_purchased
+		where user_id=#{userId}    
+	</delete>
+	<!-- 根据用户id删除用户信息 -->
+	<delete id="deleteUserByUserId"
+	        parameterType="java.lang.String">
+		delete from t_user
+		where user_id=#{userId}
+	</delete>
+	<!-- 查询所有的用户信息,用户导出excel用 -->
+	<select id="findAllUsers"
+	        resultMap="userMap">
+	    select
+			u.user_id,
+			u.user_loginname,
+			u.user_logintype,
+			u.user_nickname,
+			u.user_password,
+			u.user_type,
+			u.user_head,
+			u.user_score,
+			u.user_islock,
+			u.user_pwdstate,
+			u.user_regdate,
+			u.user_age,
+			u.user_sex,
+			r.role_id,
+			r.role_name
+		from t_user u
+		left join t_user_role ur on ur.uid=u.user_id
+		left join t_role r on r.role_id=ur.rid
+	</select>
+	<!-- 根据用户的名称,获取此用户拥有的所有的模块名称 -->
+	<select id="findModulesByLoginName"
+	        parameterType="java.lang.String"
+	        resultType="java.lang.String">
+	     select module_name from t_module
+	     where module_id in
+	         (
+		     select mid from t_user_module
+		     where uid=(
+		     		     select user_id 
+		     		     from t_user 
+		     		     where user_loginname=#{loginName}
+		     		   )
+		     )
+	</select>
+	<!-- 根据角色的名称查询用户的个数 -->
+	<select id="findUserCountByRoleName"
+	        parameterType="java.lang.String"
+	        resultType="java.lang.Integer">
+		select count(u.user_id)
+		from t_user u
+		left outer join t_user_role ur on ur.uid=u.user_id
+		left outer join t_role r on r.role_id=ur.rid
+		where r.role_name=#{roleName}
+	</select>
+</mapper>

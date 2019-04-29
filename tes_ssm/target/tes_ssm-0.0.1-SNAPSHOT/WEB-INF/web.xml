@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>tes_ssm</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- 全局初始化数据,spring的监听器读取此配置文件 
+	多个配置文件用分号分隔 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		          classpath:conf/spring.xml;
+		          classpath:conf/spring_mybatis.xml;
+		          classpath:conf/spring_shiro.xml
+		</param-value>
+	</context-param>
+	<!-- spring容器初始化的监听器,会读取全局初始化的数据(xml文件) -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- spring处理中文乱码问题 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- shiro的过滤器  注意此处的filtername跟spring配置文件中的bean id名称一致  -->
+	<filter>
+	  	<filter-name>shiroFilter</filter-name>
+	  	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	  		<init-param>
+	  			<!-- 将shiro的生命周期交给web容器管理 -->	  		
+		  		<param-name>targetFilterLifecycle</param-name>
+		  		<param-value>true</param-value>
+	  		</init-param>
+	</filter>
+	<filter-mapping>
+	  	<filter-name>shiroFilter</filter-name>
+	  	<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- spring mvc的入口 加载spring mvc 前端控制器 restful -->
+	<!-- restful模式,必须注意在spring_mvc.xml中配置,刨除静态资源 -->
+	<servlet>
+		<servlet-name>dispatcher_restful</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:conf/spring_mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher_restful</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>
